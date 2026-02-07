@@ -1,13 +1,14 @@
 import { z } from 'zod'
 
 export const addressFormSchema = z.object({
-  /* validação de cep formato (00000-000) */
-  cep: z.string().length(9).regex(/^\d{5}-\d{3}$/),
+  cep: z.string()
+    .min(1, { error: "CEP é obrigatório" })
+    .regex(/^\d{5}-\d{3}$/, { error: "CEP deve conter o formato 00000-000." }),
   logradouro: z.string(),
   estado: z.string(),
   cidade: z.string(),
-  numero: z.string().min(1),
-  complemento: z.string().optional()
+  numero: z.string().min(1, { error: "Número é obrigatório" }).max(20, { error: "Número muito longo." }),
+  complemento: z.string().max(100, { error: "Complemento muito longo." }).optional()
 })
 
 export type AddressForm = z.infer<typeof addressFormSchema>
