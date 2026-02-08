@@ -1,3 +1,6 @@
+import AddressForm from "./components/AddressForm";
+
 export function App() {
-  return <h1>Yay</h1>;
+  return <AddressForm />;
 }
+
