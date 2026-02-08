@@ -11,4 +11,4 @@ export const addressFormSchema = z.object({
   complemento: z.string().max(100, { error: "Complemento muito longo." }).optional()
 })
 
-export type AddressForm = z.infer<typeof addressFormSchema>
+export type AddressFormData = z.infer<typeof addressFormSchema>
