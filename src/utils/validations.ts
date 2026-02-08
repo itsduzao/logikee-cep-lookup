@@ -16,7 +16,7 @@ export function maskCEP(cep: string): string {
 
   if (sanitizedCEP.length <= 5) return sanitizedCEP
 
-  const maskedCEP = sanitizedCEP.replace(/(\d{5})(\d)/, '$1-$2').slice(0, 8)
+  const maskedCEP = sanitizedCEP.replace(/(\d{5})(\d)/, '$1-$2').slice(0, 9)
 
   return maskedCEP
 }
