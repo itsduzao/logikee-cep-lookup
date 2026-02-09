@@ -223,6 +223,9 @@ export default function AddressForm() {
                   type="submit"
                   disabled={isSubmitting || isLoading}
                   aria-busy={isSubmitting}
+                  aria-label={
+                    isSubmitting ? "Salvando endereço" : "Confirmar endereço"
+                  }
                   className={clsx(
                     "w-full py-4 rounded-lg font-bold text-white transition-all shadow-md",
                     "bg-slate-900 hover:bg-slate-800 hover:shadow-lg active:scale-[0.99]",
