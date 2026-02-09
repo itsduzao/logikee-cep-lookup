@@ -9,7 +9,7 @@ import type { AddressData } from "@/types"
 export function mapViaCepToAddressData(data: ViaCepSuccess): AddressData {
   return {
     logradouro: data.logradouro,
-    cidade: data.localidade,    // ✅ Mapeamento explícito
-    estado: data.uf,            // ✅ Mapeamento explícito
+    cidade: data.localidade,
+    estado: data.uf,
   }
 }
