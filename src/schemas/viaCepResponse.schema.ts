@@ -7,7 +7,7 @@ export const viaCepSuccessSchema = z.object({
 })
 
 export const viaCepErrorSchema = z.object({
-  erro: z.literal(true)
+  erro: z.union([z.literal(true), z.literal("true")])
 })
 
 // Schema unificado para validação

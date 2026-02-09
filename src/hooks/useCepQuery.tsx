@@ -1,6 +1,7 @@
-import type {
-  ViaCepError,
-  ViaCepResponse,
+import {
+  viaCepResponseSchema,
+  type ViaCepError,
+  type ViaCepResponse,
 } from "@/schemas/viaCepResponse.schema";
 import type { CepQueryState } from "@/types";
 import { isValidCepFormat, sanitizeCEP } from "@/utils/cep";
@@ -11,7 +12,7 @@ import { useState } from "react";
  * Type guard para verificar se a resposta da API é um erro
  */
 function isViaCepError(data: ViaCepResponse): data is ViaCepError {
-  return "erro" in data && data.erro === true;
+  return "erro" in data && (data.erro === true || data.erro === "true");
 }
 
 /**
@@ -72,7 +73,16 @@ export function useCepLookup() {
         throw new Error("Erro ao buscar CEP. Tente novamente.");
       }
 
-      const data: ViaCepResponse = await response.json();
+      const rawData = await response.json();
+
+      const parseResult = viaCepResponseSchema.safeParse(rawData);
+
+      if (!parseResult.success) {
+        console.error("❌ Resposta da API inválida:", parseResult.error);
+        throw new Error("Resposta da API em formato inesperado");
+      }
+
+      const data = parseResult.data;
 
       if (isViaCepError(data)) {
         setState({
