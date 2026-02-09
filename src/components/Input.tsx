@@ -9,16 +9,18 @@ import React from "react";
  *
  * @property {React.ReactNode} [suffix] - Elemento React a ser exibido como sufixo do input.
  * @property {boolean} [hasError] - Indica se o input está em estado de erro.
- * @property {boolean} [readOnly] - Indica se o input está em modo somente leitura.
+ * @property {boolean} [readOnly] - Indica se o input é somente leitura.
+ * @property {boolean} [isLoading] - Indica se o input está em estado de carregamento.
  */
 interface InputProps extends React.ComponentProps<"input"> {
   suffix?: React.ReactNode;
   hasError?: boolean;
   readOnly?: boolean;
+  isLoading?: boolean;
 }
 
 /**
- * Componente de input customizado com suporte a sufixo, estados de erro e somente leitura.
+ * Componente de input reutilizável com suporte a ícones, estados de erro, loading e readonly.
  *
  * @component
  * @example
@@ -27,25 +29,28 @@ interface InputProps extends React.ComponentProps<"input"> {
  *   placeholder="Digite seu CEP"
  *   suffix={<SearchIcon />}
  *   hasError={false}
+ *   isLoading={false}
  * />
  * ```
  *
- * @param {string} [className] - Classes CSS adicionais para estilização customizada
- * @param {React.ReactNode} [suffix] - Elemento React a ser exibido como sufixo (ícone) no lado direito do input
- * @param {boolean} [hasError] - Define se o input deve exibir o estado de erro com bordas e fundo avermelhados
- * @param {boolean} [readOnly] - Define se o input é somente leitura (desabilita interação e altera estilos)
- * @param {InputProps} props - Demais propriedades nativas do elemento HTML input
- * @param {React.Ref<HTMLInputElement>} ref - Referência encaminhada para o elemento input subjacente
+ * @param {string} [className] - Classes CSS adicionais para customização do input
+ * @param {React.ReactNode} [suffix] - Ícone ou elemento a ser exibido no lado direito do input
+ * @param {boolean} [hasError] - Indica se o input está em estado de erro, aplicando estilos visuais correspondentes
+ * @param {boolean} [readOnly] - Define se o input é somente leitura, desabilitando interações
+ * @param {boolean} [isLoading] - Indica estado de carregamento, definindo o atributo aria-busy
+ * @param {React.Ref<HTMLInputElement>} ref - Referência para o elemento input nativo
  *
- * @returns {JSX.Element} Componente de input estilizado com container wrapper
+ * @returns {JSX.Element} Componente de input estilizado com funcionalidades adicionais
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, suffix, hasError, readOnly, ...props }, ref) => {
+  ({ className, suffix, hasError, readOnly, isLoading, ...props }, ref) => {
     return (
       <div className="relative w-full">
         <input
           ref={ref}
           readOnly={readOnly}
+          aria-busy={isLoading}
+          aria-invalid={hasError}
           className={cn(
             // Estilos Base
             "w-full px-4 py-3 rounded-lg border bg-slate-50 outline-none transition-all",
