@@ -5,6 +5,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/logikee-cep-lookup/', // ✅ Nome do seu repositório GitHub
   plugins: [
     tailwindcss(),
     tsconfigPaths(),
