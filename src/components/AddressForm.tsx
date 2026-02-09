@@ -15,13 +15,7 @@ import { Input } from "./Input";
 
 export default function AddressForm() {
   // Estados locais
-  const {
-    data,
-    isLoading,
-    error: apiError,
-    fetchAddress,
-    reset,
-  } = useCepLookup();
+  const { data, isLoading, error: apiError, fetchAddress } = useCepLookup();
 
   // React Hook Form
   const {
@@ -29,7 +23,6 @@ export default function AddressForm() {
     handleSubmit,
     watch,
     setValue,
-    reset: resetState,
     formState: { errors, isSubmitting },
   } = useForm<AddressFormData>({
     resolver: zodResolver(addressFormSchema),
